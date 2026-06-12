@@ -1,9 +1,9 @@
 # 1_bronze/ingestor.py  
 # MHTML to HTML
-from email import policy
-from email.parser import BytesParser
-from pathlib import Path
-import quopri
+from email import policy # Handle email-like formats, which MHTML is based on
+from email.parser import BytesParser # Parse MHTML files, which are email-like format that can contain HTML content
+from pathlib import Path # Manage file paths more easily
+import quopri # Handle encoded content, which is common in MHTML files 
 
 
 # Extract HTML content from a single MHTML file

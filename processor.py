@@ -2,7 +2,7 @@
 # HTML to JSON
 import json
 from pathlib import Path
-from bs4 import BeautifulSoup # Undertsand and extract data from HTML files
+from bs4 import BeautifulSoup # Understand and extract data from HTML files
 from pydantic import BaseModel # Every job records follow same structure
 
 # Define a Pydantic model for job listings
