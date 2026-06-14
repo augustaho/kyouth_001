@@ -43,26 +43,24 @@ def load_all_jsons(input_dir, db_path):
             with open(file_path, "r", encoding="utf-8") as file:
                 data = json.load(file)
 
-            # Avoid crashing if error occurs during insertion, and log the error
-            try:
-                cursor.execute("""
-                    INSERT OR IGNORE INTO jobs 
-                    (source_id, job_title, company, description)
-                    VALUES (?, ?, ?, ?)
-                """, (
-                    data.get("source_id"),
-                    data.get("job_title"),
-                    data.get("company"),
-                    data.get("description"),
-                ))
+            cursor.execute("""
+                INSERT OR IGNORE INTO jobs 
+                (source_id, job_title, company, description)
+                VALUES (?, ?, ?, ?)
+            """, (
+                data.get("source_id"),
+                data.get("job_title"),
+                data.get("company"),
+                data.get("description"),
+))
 
+            # Check whether SQLite inserted a new row
+            if cursor.rowcount == 1:
                 inserted += 1
                 print(f"✅ Inserted: {filename}")
-
-            # If source_id already exists, skip and log a warning
-            except sqlite3.IntegrityError:
+            else:
                 skipped += 1
-                print(f"⏭️ Skipped (duplicate): {filename}")
+                print(f"⏭️  Skipped (duplicate): {filename}")
 
     # Commit changes and close connection
     connection.commit()
