@@ -5,24 +5,37 @@
 ## Project Description
 
 This projects build an ETL (Extract, Transform, Load) pipeline for jobs.db database, which follows a Medallion Architecture (A data design pattern used to logically organize data in a lakehouse, with the goal of incrementally and progressively improving the structure and quality of data.).
+
 The process is broken down into the following:
+    
     1. Bronze- Data Ingestion: Read raw MHTML files and convert them into HTML files
+    
     2. Silver- Data Cleaning & Processing, Structuring: Extract job information and saved as JSON files.
+    
     3. Gold- Data Storage & Idempotent Loading: Store data in SQLite Database, Prevent duplication.
+    
     4. Data Profiling & Ochestration: Run quality check of database, Use main.py to run each step or full pipeline.
+
 
 
 ## Setup Instructions
 Before running the project, ensure the following are installed:
+   
     - python version 3.14
     - Git
 
+
 Clone Repository using:
+   
     git clone https://github.com/augustaho/kyouth_001.git
 
+
 Install Dependencies Required:
+   
     pip install beautifulsoup4
+   
     pip install pydantic
+
 
 
 ## Usage

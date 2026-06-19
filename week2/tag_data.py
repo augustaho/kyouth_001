@@ -81,7 +81,7 @@ def tag_data(db_url: str):
 
         # Process jobs in batches
         for i in range(0, len(rows), BATCH_SIZE):
-            batch = rows[i:i + BATCH_SIZE]
+            batch = rows[i : i + BATCH_SIZE]
 
             updates = []
 
@@ -108,7 +108,9 @@ Job description:
                     tech_stack = clean_response(response)
 
                     # Estimate token count using 4 tokens per word
-                    total_tokens += (len(prompt.split()) + len(str(response).split())) * 4
+                    total_tokens += (
+                        len(prompt.split()) + len(str(response).split())
+                    ) * 4
 
                 except Exception as error:
                     # Do not crash if Gemini/API fails
@@ -122,11 +124,14 @@ Job description:
                 print(f"Analyzed Job {source_id}: {tech_stack}")
 
             # Write current batch into database
-            cursor.executemany("""
+            cursor.executemany(
+                """
                 UPDATE jobs
                 SET tech_stack = ?
                 WHERE source_id = ?
-            """, updates)
+            """,
+                updates,
+            )
 
             conn.commit()
 
