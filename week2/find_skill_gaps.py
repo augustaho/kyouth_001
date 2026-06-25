@@ -157,7 +157,7 @@ def main():
 
     result = find_skill_gaps(
         "data/resume_d3_eval.txt",
-        "data/jobs_d3_eval.db",
+        "data/jobs_d1.db",
     )
 
     print(f"gaps={result.gaps} time={result.time} tokens={result.tokens}")
