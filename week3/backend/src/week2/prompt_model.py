@@ -8,13 +8,20 @@ from google import genai
 load_dotenv()
 
 # Create Gemini client using API key from .env
-gemini_client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+#gemini_client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 
 def call_gemini(model: str, prompt: str) -> str:
     """Send prompt to Gemini and return the response."""
 
     try:
+        api_key = os.getenv("GOOGLE_API_KEY")
+
+        if not api_key:
+            return "[Gemini Error] GOOGLE_API_KEY is missing."
+
+        gemini_client = genai.Client(api_key=api_key)
+
         response = gemini_client.models.generate_content(
             model=model,
             contents=prompt,
@@ -24,7 +31,6 @@ def call_gemini(model: str, prompt: str) -> str:
 
     except Exception as error:
         return f"[Gemini Error] {error}"
-
 
 def call_ollama(model: str, prompt: str) -> str:
     """Send prompt to Ollama local LLM and return the response."""
